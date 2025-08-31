@@ -1,12 +1,51 @@
 # Claude Commands & Agents
 
-Personal collection of Claude agents and commands.
+Template repository for developing scientific computing-focused Claude agents.
+
+**Based on**: Excellent original collection, adapted for scientific data analysis and library development.
 
 ```
-agents/                # Specialized agents (architect, debugger, developer, etc.)
-commands/              # Commands like plan-execution
-prompt-engineering.md  # Prompt optimization techniques
+agents/                # Specialized agents optimized for scientific computing
+├── developer.md       # Scientific code implementation (★ customized)
+├── quality-reviewer.md # Scientific code review (★ customized)  
+├── architect.md       # Solution design (original)
+├── debugger.md        # Bug analysis (original)
+└── technical-writer.md # Documentation (original)
+commands/              # Task execution patterns (original)
+prompt-engineering.md  # Prompt optimization techniques (from Southbridge Research)
 ```
+
+## Development Workflow
+
+### 1. Edit Agents Locally
+Develop and test agent prompts in this repository:
+```bash
+# Edit agents for scientific computing use cases
+vim agents/developer.md
+vim agents/quality-reviewer.md
+```
+
+### 2. Symlink to Global Directory
+Deploy agents for global use across scientific projects:
+```bash
+# Symlink updated agents to global Claude directory
+ln -sf $(pwd)/agents/developer.md ~/.claude/agents/
+ln -sf $(pwd)/agents/quality-reviewer.md ~/.claude/agents/
+
+# Verify symlinks
+ls -la ~/.claude/agents/
+```
+
+### 3. Use Globally
+Agents are now available in all Claude Code sessions for scientific computing projects.
+
+## Scientific Computing Focus
+Unlike production software, scientific computing prioritizes:
+- **Mathematical correctness** over defensive programming
+- **Clean, concise code** that expresses scientific intent
+- **Research workflow efficiency** over comprehensive testing  
+- **Vectorized operations** and numerical stability
+- **Rapid iteration** with spot checks rather than exhaustive validation
 
 ## Acknowledgments
 
