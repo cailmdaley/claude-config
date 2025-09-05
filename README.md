@@ -1,6 +1,14 @@
 # Claude Commands & Agents
 
-Template repository for developing scientific computing-focused Claude agents.
+**Prompt Development Repository** for scientific computing-focused Claude agents.
+
+## ⚠️ Key Concept
+
+**This repository is for writing prompts, not using them.**
+
+- 📝 **What this repo does**: Provides a workspace to develop and version control Claude agent prompts
+- ❌ **What this repo doesn't do**: Actually affect Claude Code behavior (files here are inactive templates)
+- 🔗 **To activate prompts**: Must symlink to ~/.claude/agents/ directory as shown in workflow below
 
 **Based on**: Excellent original collection, adapted for scientific data analysis and library development.
 
@@ -43,9 +51,11 @@ ls -la ~/.claude/CLAUDE.md ~/.claude/agents/
 ```
 
 ### 3. Use Globally
-Agents and configuration are now available in all Claude Code sessions for scientific computing projects.
+Once symlinked, agents and configuration are available in all Claude Code sessions for scientific computing projects. The original files in this repository remain as templates for further development.
 
 ## Setup on New Machines
+
+⚠️ **Critical Step**: The prompts in this repository are inactive until deployed via symlinks.
 
 To deploy this configuration to a new machine:
 
@@ -63,8 +73,10 @@ ln -sf $(pwd)/agents/developer.md ~/.claude/agents/
 ln -sf $(pwd)/agents/quality-reviewer.md ~/.claude/agents/
 # Add other agents as needed...
 
-# Verify setup
+# Verify setup - these should show symlinks to your repo files
 ls -la ~/.claude/CLAUDE.md ~/.claude/agents/
+
+# The prompts are now active for Claude Code sessions
 ```
 
 ## Scientific Computing Focus
