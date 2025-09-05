@@ -17,27 +17,55 @@ prompt-engineering.md  # Prompt optimization techniques (from Southbridge Resear
 
 ## Development Workflow
 
-### 1. Edit Agents Locally
-Develop and test agent prompts in this repository:
+### 1. Edit Configuration Locally
+Develop and test agent prompts and global configuration in this repository:
 ```bash
 # Edit agents for scientific computing use cases
 vim agents/developer.md
 vim agents/quality-reviewer.md
+
+# Edit global Claude configuration
+vim global-claude.md
 ```
 
 ### 2. Symlink to Global Directory
-Deploy agents for global use across scientific projects:
+Deploy agents and configuration for global use across scientific projects:
 ```bash
+# Symlink global Claude configuration
+ln -sf $(pwd)/global-claude.md ~/.claude/CLAUDE.md
+
 # Symlink updated agents to global Claude directory
 ln -sf $(pwd)/agents/developer.md ~/.claude/agents/
 ln -sf $(pwd)/agents/quality-reviewer.md ~/.claude/agents/
 
 # Verify symlinks
-ls -la ~/.claude/agents/
+ls -la ~/.claude/CLAUDE.md ~/.claude/agents/
 ```
 
 ### 3. Use Globally
-Agents are now available in all Claude Code sessions for scientific computing projects.
+Agents and configuration are now available in all Claude Code sessions for scientific computing projects.
+
+## Setup on New Machines
+
+To deploy this configuration to a new machine:
+
+```bash
+# Clone the repository
+git clone <this-repo-url> ~/code/claude-config
+cd ~/code/claude-config
+
+# Create global Claude directory if it doesn't exist
+mkdir -p ~/.claude/agents
+
+# Symlink global configuration and agents
+ln -sf $(pwd)/global-claude.md ~/.claude/CLAUDE.md
+ln -sf $(pwd)/agents/developer.md ~/.claude/agents/
+ln -sf $(pwd)/agents/quality-reviewer.md ~/.claude/agents/
+# Add other agents as needed...
+
+# Verify setup
+ls -la ~/.claude/CLAUDE.md ~/.claude/agents/
+```
 
 ## Scientific Computing Focus
 Unlike production software, scientific computing prioritizes:
