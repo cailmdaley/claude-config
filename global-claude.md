@@ -34,6 +34,58 @@ Code should be self-documenting through descriptive variable and function names,
 
 Implementations must include ONLY the basic features that were explicitly requested. Do not add extra features, optimizations, or "helpful" additions unless specifically asked. Code should be minimal and direct. Stop immediately when encountering errors that cannot be resolved within the original conceptual framework - do not implement alternative approaches without explicit permission.
 
+## Project Organization
+
+### Development and Testing Structure
+
+**Research Notebooks**: Create new explorations in `research_notebook/` directory following `YYYY_MM_DD_topic.py` naming convention. Always check the current date before creating new files to ensure accurate timestamps.
+
+**Legacy Reference**: `research_notebook.py` contains historical examples and reference patterns - use for searching existing approaches only, not for new development.
+
+### Research Notebook Guidelines
+
+**File Header**: Start each exercise with date header: `# Date: YYYY-MM-DD`
+
+**Self-Contained Execution**: Import all required packages at the top of each notebook for standalone execution capability.
+
+**Date Verification**: Include bash date verification when needed: `!date`
+
+**Interactive Cell Delimiters**: Research exercise scripts will be run interactively using `# %%` as cell delimiters. Place these delimiters at natural breakpoints in the script to facilitate interactive execution and exploration.
+
+### Common Project Structure
+
+**Configuration**: `config.yaml` - Analysis parameters, flags, base directories, and project settings
+
+**Main Workflow**: `workflow/Snakefile` - Orchestrates the complete analysis pipeline
+
+**Rules**: `workflow/rules/` - Modular Snakemake rule definitions
+
+**Scripts**: `workflow/scripts/` - Analysis and processing scripts  
+
+**Research**: `research_notebook/` - Dated analysis exercises following `YYYY_MM_DD_topic.py` format
+
+### Visualization Standards
+
+**Plotting Framework**: Use seaborn with husl palette: `sns.set_palette("husl", n)` where n equals the number of data series being plotted.
+
+### Documentation Workflow
+
+**Primary Documentation**: `RESEARCH_PROGRESS.md` serves dual purpose as immediate action items tracker and chronological progress log.
+
+**Session Updates**: After completing investigations or major tasks, add dated entries to progress log including:
+- Investigation objective and methods used
+- Key findings and technical discoveries  
+- Resolution status and impact on project goals
+- Cross-references to specific `research_notebook/` files and output plots
+
+### Research Workflow Integration
+
+**Complete Analysis Cycle**:
+1. Create `research_notebook/` files following `YYYY_MM_DD_topic.py` naming convention
+2. Save generated plots to `results/sandbox/` with current date
+3. Update `RESEARCH_PROGRESS.md` with session summary and findings
+4. Cross-reference technical implementation details with scientific context for future reference
+
 ## Subagent Usage - CRITICAL
 
 **ALWAYS use the developer subagent for implementation tasks unless explicitly told otherwise.** This is the default approach for any coding work beyond trivial, localized changes.
