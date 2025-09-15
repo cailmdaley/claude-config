@@ -14,22 +14,27 @@ Based on an excellent original collection, adapted for scientific data analysis 
 agents/                  # Specialized AI agents optimized for scientific computing
 ├── architect.md         # Solution design and ADR creation (production-focused)
 ├── debugger.md         # Systematic bug analysis (production-focused) 
-├── developer.md        # Scientific code implementation ★ CUSTOMIZED
-├── quality-reviewer.md # Scientific code review ★ CUSTOMIZED
+├── developer.md        # Scientific code implementation ★ ACTIVE
+├── opinionated-editor.md # Code style and structure improvement ★ ACTIVE
+├── quality-reviewer.md # Scientific code review ★ ACTIVE
+├── snakemake-expert.md # Workflow management specialist ★ ACTIVE
 └── technical-writer.md # Documentation creation (production-focused)
 
-commands/               # Task execution patterns (from original template)
+commands/                # Task execution patterns (from original template)
 └── plan-execution.md   # Project management workflow
 
+global-claude.md        # Global Claude configuration file
+setup-claude-config.sh  # Automated deployment script
 prompt-engineering.md   # Advanced prompt patterns and techniques (from Southbridge Research)
 ```
 
+★ ACTIVE = Automatically symlinked by setup script
 ★ = Adapted for scientific computing workflows
 
 ## Development Workflow
 1. **Edit agents locally** in this repository
 2. **Test and refine** agent prompts for scientific use cases  
-3. **Symlink to global directory**: `ln -sf $(pwd)/agents/developer.md ~/.claude/agents/`
+3. **Setup global configuration**: `./setup-claude-config.sh`
 4. **Use agents globally** across all scientific computing projects
 
 ## Scientific Computing Focus
@@ -75,13 +80,18 @@ When modifying agents, apply patterns from `prompt-engineering.md`:
 - **Research iteration speed**: Clean, working code delivered quickly over robust production systems
 - **Domain trust**: Assume scientific libraries handle edge cases appropriately
 
-## Template Nature
-**This repository is purely for prompt development** - the agent files here are inactive templates until symlinked to ~/.claude/agents/. This serves as a development environment where you can:
+## Template Nature & Deployment
+**This repository is purely for prompt development** - the agent files here are inactive templates until deployed. This serves as a development environment where you can:
 
 1. **Write and edit agent prompts** in isolation
 2. **Version control your prompt modifications** with git
 3. **Test different prompt variations** before deploying globally
 4. **Share prompt configurations** across machines via git
+
+**Automated Deployment**: Use `./setup-claude-config.sh` to deploy all configuration:
+- Symlinks `global-claude.md` → `~/CLAUDE.md` (global Claude configuration)
+- Symlinks active agents → `~/.claude/agents/` (per-session agents)
+- Creates directories and provides deployment confirmation
 
 The original excellent template has been adapted to focus on:
 - Mathematical correctness over defensive programming  
@@ -89,4 +99,4 @@ The original excellent template has been adapted to focus on:
 - Scientific library best practices over general software engineering
 - Rapid iteration over comprehensive testing
 
-**Deployment required**: Changes developed here must be symlinked to the global agents directory to be used in actual Claude Code sessions across scientific computing projects.
+**One-command deployment**: Run `./setup-claude-config.sh` to activate all prompts for Claude Code sessions across scientific computing projects.
