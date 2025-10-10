@@ -1,0 +1,8 @@
+{
+  "name": "research-assistant",
+  "description": "Research workflow utilities for scientific computing: status checks, context refresh, and workflow monitoring",
+  "version": "1.0.0",
+  "author": {
+    "name": "CD"
+  }
+}
