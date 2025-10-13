@@ -1,76 +1,152 @@
 ---
 description: Quick research status overview - todos, recent progress, running jobs, and recent work
+:---
+
+Provide a concise status overview for the current research project. This command accepts optional focus text to filter results around specific concepts.
+
+**Usage:**
+- `/catch-up` - General overview of recent activity
+- `/catch-up n(z)s` - Focus on redshift distribution work
+- `/catch-up calibration` - Focus on calibration-related work
+
+The focus text performs wide-ranging, case-insensitive matching across file names and contents. Use conceptual terms, and be liberal with variations (e.g., "n(z)s" should also catch "DNDZ", "redshift", "photo-z").
+
 ---
 
-Provide a concise status overview for the current research project. Check these in order, handling missing files/directories gracefully:
+## Information Gathering Strategy
 
-## 1. Active Todos
-List current todos with their status. If none exist, note that.
+### 1. ALWAYS: Recent File Activity (Core Context)
+Find the 10 most recently modified files (excluding common non-work patterns):
+- Use `find` to list files, sorted by modification time
+- **Exclude:** `.*/` (dot directories), `_*/` (underscore directories), `*.pyc`, `*.log`, `.git/`
+- **Get 10 most recent:** Assess relevance based on modification date and file name
 
-## 2. Recent Research Progress
-If `docs/RESEARCH_PROGRESS.qmd` exists, scan and summarize the last 2-3 dated entries. Focus on:
-- What was being investigated
-- Key findings or outcomes
-- Any open questions or next steps mentioned
+**If focus text provided:**
+- Use `grep -i` to search file contents for focus text and related terms
+- Prioritize files with matches
+- Consider conceptual expansions (e.g., "n(z)s" → also search for "redshift", "DNDZ", "photo-z")
 
-If the file doesn't exist, note it and move on.
+**Read 2-3 most relevant files:**
+- If focused: Read top matches from grep
+- If unfocused: Read most recently modified files that appear relevant
+- Extract: Current work direction, key variables/functions, recent changes
 
-## 3. Recent Explorations
-Check for `docs/explorations/*.qmd` files. List the 3-5 most recently modified ones with:
-- Filename (date + topic gives context)
-- Last modified date
-- Brief topic if extractable from filename
+**Purpose:** This section always works, even in bare directories or new projects.
 
-If directory doesn't exist or is empty, note it and move on.
+---
 
-## 4. Running Jobs
-Check for active Slurm jobs with `squeue -u $USER` (if squeue is available). Show:
-- Job IDs and names
-- Status and runtime
-- Any notable resource usage
+### 2. ALWAYS: Active Todos
+Check current todos from Claude Code's todo system. If focus text provided, highlight relevant todos.
 
-If no jobs running or squeue unavailable, note it and move on.
+---
 
-## 5. Recent Workflow Activity
-Check for recently modified files in `workflow/` directory (if it exists):
-- Snakefile modifications
-- New or changed rule files
-- Modified scripts
+### 3. CONDITIONAL: Git Status (if `.git/` exists)
+**Check for:** `.git/` directory
 
-Show last modified dates for context. If workflow directory doesn't exist, note it.
+If exists:
+1. **Check uncommitted changes:** Run `git status --short` to see modified, staged, and untracked files
+2. **Show most recent commit:** Run `git log -1 --oneline` to display the latest commit message and hash
+3. **Note:** Brief summary of what's uncommitted and what was last committed
 
-## 6. Snakemake Status
-If a Snakefile exists, optionally run `snakemake --summary` or `snakemake --detailed-summary` to show workflow state. Handle locked workflows or errors gracefully - just note the issue without failing.
+If not a git repository, skip this section entirely.
+
+---
+
+### 4. CONDITIONAL: Research Progress (if `docs/` exists)
+**Check for:** `docs/RESEARCH_PROGRESS.qmd` or `docs/RESEARCH_PROGRESS.md`
+
+If exists:
+- Scan last 2-3 dated entries
+- Focus on: what was investigated, key findings, open questions
+- If focus text: only summarize entries related to focus concept
+
+**Check for:** `docs/explorations/*.qmd` or similar exploration files
+
+If exists:
+- List 3-5 most recently modified
+- If focus text: filter for relevant explorations only
+- Show: filename, date, brief topic
+
+If `docs/` doesn't exist or is empty, skip this section entirely.
+
+---
+
+### 5. CONDITIONAL: Workflow Status (if `.snakemake/` exists)
+**CRITICAL: Never run snakemake directly.** The Snakemake log is the primary entry point for all workflow management.
+
+**Check for:** `.snakemake/log/` directory
+
+If exists:
+1. **Find 5 most recent Snakemake logs** in `.snakemake/log/` (sorted by modification time)
+2. **Assess temporal clustering:** Check modification times of these logs
+   - If multiple logs are clustered together in time (e.g., within last few hours/days), read all clustered logs
+   - If logs span a long time period, focus on the most recent 1-2
+3. **Parse log(s) for status:**
+   - Job completion status
+   - Current rule being executed
+   - Any error messages
+   - Links to Slurm log files (e.g., `slurm-*.out`)
+4. **If job is running or failed:** Read linked Slurm logs to get detailed status
+   - Look for paths like `slurm-<jobid>.out` mentioned in Snakemake log
+   - Check for error messages, resource usage, completion status
+5. **Assess workflow state:** What rules completed? What's pending? What failed?
+
+**Also check:** `workflow/` directory for recent modifications to Snakefile, rules/*.smk, scripts/*
+- If focus text: only show files matching the concept
+- Note key recent changes to workflow infrastructure
+
+If no `.snakemake/` directory, skip this section entirely.
+
+---
+
+### 6. CONDITIONAL: Running Jobs (if `squeue` available)
+**Check for:** Active Slurm jobs with `squeue -u $USER`
+
+If available and jobs running:
+- Show: Job IDs, names, status, runtime
+- If focus text: filter for jobs matching the concept
+- Note any notable resource usage
+
+If no `squeue` or no jobs running, skip or briefly note.
 
 ---
 
 ## Output Format
 
-After gathering this information, provide a **concise summary** in this structure:
+Provide a **concise, focused summary** in this structure:
 
 ```
-## Research Status
+## Research Status [for <focus-concept>]
 
-**Active work:**
-[Summary of todos and what seems to be in progress]
+**Recent work:**
+[Based on recently modified files - what's actively being developed?]
+[If files were read: key observations from those files]
 
-**Recent progress:**
-[Highlights from RESEARCH_PROGRESS.qmd if available]
+**Active todos:**
+[Current todos, filtered by focus if provided]
 
-**Recent explorations:**
-[List of recent .qmd files if any]
+**Git status:** [if .git/ exists]
+[Uncommitted changes and most recent commit]
 
-**Running jobs:**
-[Active Slurm jobs or "None running"]
+**Research progress:** [if docs/ exists]
+[Recent progress entries, filtered by focus if provided]
 
-**Workflow status:**
-[Recent workflow changes or current state]
+**Workflow status:** [if workflow/ exists]
+[Recent changes, current state, filtered by focus if provided]
+
+**Running jobs:** [if any]
+[Active jobs, filtered by focus if provided]
 
 ---
 
-What are we working on?
+What should we work on next?
 ```
 
-Keep it brief - this is a quick orientation tool, not a comprehensive report. If most sections have nothing to report (common in new projects), that's fine - just note it and ask what the user wants to work on.
+**Key Principles:**
+- **Always functional:** Recent files work everywhere
+- **Gracefully degrade:** Skip sections when infrastructure doesn't exist
+- **Focus-aware:** Filter everything by focus text when provided
+- **Context-building:** Actually read relevant files, don't just list them
+- **Brief:** This is orientation, not a comprehensive report
 
-**Tone**: Direct and matter-of-fact. This is a status check, not a presentation. Missing information is normal, not a problem.
+**Tone:** Direct and matter-of-fact. This is a status check. Missing sections are normal, not a problem. If focused on a concept and nothing is found, say so clearly.
