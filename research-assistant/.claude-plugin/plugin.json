@@ -1,8 +1,14 @@
 {
   "name": "research-assistant",
-  "description": "Research workflow utilities for scientific computing: status checks, context refresh, and workflow monitoring",
-  "version": "1.0.3",
+  "description": "Skills-based research workflow guidance for scientific computing",
+  "version": "2.1.0",
   "author": {
     "name": "CD"
-  }
+  },
+  "skills": [
+    "skills/catching-up",
+    "skills/using-snakemake",
+    "skills/implementing-code",
+    "skills/reviewing-code"
+  ]
 }

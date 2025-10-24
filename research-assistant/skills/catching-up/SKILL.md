@@ -1,13 +1,15 @@
 ---
+name: catch-up
 description: Quick research status overview - todos, recent progress, running jobs, and recent work
-:---
+model: claude-3-5-haiku-20241022
+---
 
-Provide a concise status overview for the current research project. This command accepts optional focus text to filter results around specific concepts.
+Provide a concise status overview for the current research project. This skill accepts optional focus text to filter results around specific concepts.
 
 **Usage:**
-- `/catch-up` - General overview of recent activity
-- `/catch-up n(z)s` - Focus on redshift distribution work
-- `/catch-up calibration` - Focus on calibration-related work
+- Type "catch-up" - General overview of recent activity
+- Type "catch-up n(z)s" - Focus on redshift distribution work
+- Type "catch-up calibration" - Focus on calibration-related work
 
 The focus text performs wide-ranging, case-insensitive matching across file names and contents. Use conceptual terms, and be liberal with variations (e.g., "n(z)s" should also catch "DNDZ", "redshift", "photo-z").
 

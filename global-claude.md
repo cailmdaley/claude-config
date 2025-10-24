@@ -96,13 +96,14 @@ snakemake -s explorations.smk results/explorations/coverage_analysis.png
 
 1. **Dry-run first**: `snakemake {target} --dry-run`
 2. **If file SHOULD regenerate but DOESN'T**:
-   - **DO NOT** use `--force` or `--forcerun`
+   - **NEVER use force flags without explicit user approval**: `--force`, `--forceall`, `-f`, `-F`, `--forcerun` bypass Snakemake's dependency tracking and can lead to wasted computation or inconsistent results
    - **DO NOT** delete the file
    - **THINK**: Why does Snakemake think the file is up to date?
    - **CHECK**: Do the jobs that produce the inputs work when dry-runned?
    - **TRY**: `--rerun-incomplete` if there was an interruption
    - **TRY**: `--unlock` if directory was locked
    - **INVESTIGATE**: Are input files actually newer? Are triggers configured correctly?
+   - **If stuck, ask the user** before resorting to force flags
 
 3. **Use debugging commands**:
    - `snakemake {target} --reason` - understand why jobs trigger
@@ -124,9 +125,18 @@ Proactively monitor workflows, especially for long-running jobs. Don't just subm
 **Use tmux for long-running workflows**: Run Snakemake within a tmux session to allow detaching and reattaching for monitoring, especially for large parallel runs.
 
 ```bash
-# Start detached tmux session with workflow
-tmux new-session -d -s snakemake 'snakemake --profile slurm -j14 -c2 build_maps'
+# Create empty tmux session first (direct command execution can fail silently)
+tmux new-session -d -s snakemake
+
+# Send commands to the session
+tmux send-keys -t snakemake "cd $(pwd)" C-m
+tmux send-keys -t snakemake "snakemake --profile slurm -j14 build_maps" C-m
+
+# Capture output if needed
+tmux capture-pane -t snakemake -p
 ```
+
+This pattern ensures the session exists before sending commands and keeps output accessible via `tmux capture-pane`.
 
 **Cluster job monitoring** (if using SLURM):
 ```bash
