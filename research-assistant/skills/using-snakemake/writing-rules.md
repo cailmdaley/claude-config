@@ -306,6 +306,56 @@ with open(snakemake.output[0], 'wb') as f:
     pickle.dump(results, f)
 ```
 
+### Standalone-Compatible Scripts
+
+Make scripts work both in Snakemake workflows and as standalone tools using argparse fallback:
+
+```python
+# scripts/analyze.py
+import argparse
+from pathlib import Path
+import healpy as hp
+import pickle
+
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--data', type=Path, required=True)
+    parser.add_argument('--mask', type=Path, required=True)
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--threshold', type=float, default=0.95)
+    return parser.parse_args()
+
+def main() -> None:
+    # Try Snakemake object first, fall back to argparse
+    try:
+        from snakemake.script import snakemake
+        data_path = Path(snakemake.input.data)
+        mask_path = Path(snakemake.input.mask)
+        output_path = Path(snakemake.output[0])
+        threshold = snakemake.params.threshold
+    except NameError:
+        args = parse_args()
+        data_path = args.data
+        mask_path = args.mask
+        output_path = args.output
+        threshold = args.threshold
+
+    # Analysis code (same regardless of invocation method)
+    data = hp.read_map(data_path)
+    mask = hp.read_map(mask_path)
+    # ... analysis using threshold ...
+
+    with open(output_path, 'wb') as f:
+        pickle.dump(results, f)
+
+if __name__ == '__main__':
+    main()
+```
+
+**Pattern**: Try importing `snakemake` object; if `NameError` occurs (standalone execution), parse args. This enables sharing scripts outside workflows while keeping Snakemake integration clean.
+
+**Tradeoff**: Variable assignment is duplicated in try/except blocks. This repetition is necessary to maintain type compatibility and clear variable names in both execution modes.
+
 **Use `shell:` for command-line tools**:
 ```python
 rule compress:
