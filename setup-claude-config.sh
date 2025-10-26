@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup script for Claude Code configuration
-# Deploys global CLAUDE.md, research-assistant plugin, and output style
+# Deploys global CLAUDE.md, research-assistant skills, and output style
 
 set -e
 
@@ -14,7 +14,7 @@ print_usage() {
     echo ""
     echo "Deploys Claude Code configuration:"
     echo "  - Global CLAUDE.md (research assistant configuration)"
-    echo "  - research-assistant plugin (skills and agents)"
+    echo "  - research-assistant skills"
     echo "  - research-assistant output style"
 }
 
@@ -34,20 +34,22 @@ done
 
 # Source files
 CLAUDE_CONFIG_SOURCE="$SCRIPT_DIR/global-claude.md"
-PLUGIN_SOURCE="$SCRIPT_DIR/research-assistant"
+SKILLS_SOURCE="$SCRIPT_DIR/research-assistant/skills"
 OUTPUT_STYLE_SOURCE="$SCRIPT_DIR/output-styles/research-assistant.md"
+SHELL_FUNCTIONS_SOURCE="$SCRIPT_DIR/shell-functions.sh"
 
 # Target locations
 CLAUDE_CONFIG_TARGET="$CLAUDE_DIR/CLAUDE.md"
-PLUGIN_TARGET="$CLAUDE_DIR/plugins/research-assistant"
+SKILLS_TARGET="$CLAUDE_DIR/skills"
 OUTPUT_STYLE_TARGET="$CLAUDE_DIR/output-styles/research-assistant.md"
+SHELL_FUNCTIONS_TARGET="$CLAUDE_DIR/shell-functions.sh"
 
 echo "Setting up Claude Code configuration..."
 echo ""
 
 # Create necessary directories
 mkdir -p "$CLAUDE_DIR"
-mkdir -p "$CLAUDE_DIR/plugins"
+mkdir -p "$SKILLS_TARGET"
 mkdir -p "$CLAUDE_DIR/output-styles"
 
 # Deploy global CLAUDE.md
@@ -61,24 +63,13 @@ fi
 
 echo ""
 
-# Deploy research-assistant plugin
-if [ -d "$PLUGIN_SOURCE" ]; then
-    echo "Installing research-assistant plugin..."
-    ln -sf "$PLUGIN_SOURCE" "$PLUGIN_TARGET"
-    echo "  ✓ research-assistant plugin → ~/.claude/plugins/research-assistant"
-
-    # List skills
-    if [ -d "$PLUGIN_SOURCE/skills" ]; then
-        echo ""
-        echo "  Plugin includes skills:"
-        for skill_dir in "$PLUGIN_SOURCE/skills"/*; do
-            if [ -d "$skill_dir" ]; then
-                echo "    - $(basename "$skill_dir")"
-            fi
-        done
-    fi
+# Deploy research-assistant skills
+if [ -d "$SKILLS_SOURCE" ]; then
+    echo "Installing research-assistant skills..."
+    cp -r "$SKILLS_SOURCE"/* "$SKILLS_TARGET/"
+    echo "  ✓ research-assistant skills installed"
 else
-    echo "  ✗ Warning: research-assistant plugin not found, skipping..."
+    echo "  ✗ Warning: research-assistant skills not found, skipping..."
 fi
 
 echo ""
@@ -93,6 +84,43 @@ else
 fi
 
 echo ""
+
+# Deploy shell functions
+if [ -f "$SHELL_FUNCTIONS_SOURCE" ]; then
+    echo "Installing shell functions..."
+    ln -sf "$SHELL_FUNCTIONS_SOURCE" "$SHELL_FUNCTIONS_TARGET"
+    echo "  ✓ shell-functions.sh → ~/.claude/shell-functions.sh"
+
+    # Source in bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        BASHRC_MARKER="# Source Claude Code shell functions"
+        if ! grep -q "$BASHRC_MARKER" "$HOME/.bashrc"; then
+            echo "" >> "$HOME/.bashrc"
+            echo "$BASHRC_MARKER" >> "$HOME/.bashrc"
+            echo "[ -f \"$SHELL_FUNCTIONS_TARGET\" ] && source \"$SHELL_FUNCTIONS_TARGET\"" >> "$HOME/.bashrc"
+            echo "  ✓ Added sourcing to ~/.bashrc"
+        else
+            echo "  ✓ Already sourced in ~/.bashrc"
+        fi
+    fi
+
+    # Source in zshrc if it exists
+    if [ -f "$HOME/.zshrc" ]; then
+        ZSHRC_MARKER="# Source Claude Code shell functions"
+        if ! grep -q "$ZSHRC_MARKER" "$HOME/.zshrc"; then
+            echo "" >> "$HOME/.zshrc"
+            echo "$ZSHRC_MARKER" >> "$HOME/.zshrc"
+            echo "[ -f \"$SHELL_FUNCTIONS_TARGET\" ] && source \"$SHELL_FUNCTIONS_TARGET\"" >> "$HOME/.zshrc"
+            echo "  ✓ Added sourcing to ~/.zshrc"
+        else
+            echo "  ✓ Already sourced in ~/.zshrc"
+        fi
+    fi
+else
+    echo "  ✗ Warning: shell-functions.sh not found, skipping..."
+fi
+
+echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "✓ Claude Code setup complete!"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -101,11 +129,16 @@ echo "Activation instructions:"
 echo ""
 echo "1. Global configuration: Active immediately (CLAUDE.md)"
 echo ""
-echo "2. Research-assistant plugin: Restart Claude Code to activate"
-echo "   - Includes 4 skills: catching-up, using-snakemake, implementing-code, reviewing-code"
-echo "   - Skills provide always-on guidance for research workflows"
+echo "2. Research-assistant skills: Restart Claude Code to activate"
+echo "   - Skills available: catching-up, using-snakemake, implementing-code, reviewing-code, managing-bibliography, codex"
+echo "   - Use individual skills as needed during sessions"
 echo ""
 echo "3. Output style: Run '/output-style research-assistant'"
 echo "   to activate the research assistant communication style"
+echo ""
+echo "4. Shell functions: Active in new shell sessions"
+echo "   - Functions available: app, viewpngs, download, kimi"
+echo "   - Aliases available: sq, bashrc"
+echo "   - Start a new terminal/shell to use them"
 echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"

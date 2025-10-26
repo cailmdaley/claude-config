@@ -1,7 +1,7 @@
 ---
 name: catch-up
 description: Quick research status overview - todos, recent progress, running jobs, and recent work
-model: claude-3-5-haiku-20241022
+model: claude-4-5-haiku
 ---
 
 Provide a concise status overview for the current research project. This skill accepts optional focus text to filter results around specific concepts.

@@ -167,14 +167,37 @@ grep -i error .snakemake/log/*.log
 
 ### SLURM Job Logs
 
-Snakemake logs reference SLURM output files like `slurm-{jobid}.out`:
+When cluster jobs fail, the actual execution errors are in SLURM logs stored in `.snakemake/slurm_logs/`. The SLURM log path is recorded in the Snakemake log.
+
+**Workflow**:
+1. Read the Snakemake log
+2. Find the "Complete log(s):" line showing the SLURM log path
+3. Read that specific SLURM log file
 
 ```bash
-# Find referenced in Snakemake log, then:
-tail -f slurm-{jobid}.out
+# 1. Read Snakemake log to find SLURM log path
+tail .snakemake/log/2025-10-24T224629.949619.snakemake.log
+# Output includes: Complete log(s): .snakemake/slurm_logs/rule_name/jobid.log
 
-# Check for errors
-grep -i error slurm-*.out
+# 2. Read the SLURM log directly
+tail -200 .snakemake/slurm_logs/rule_covariance_glass_mock/381540.log
+
+# 3. Search for errors
+grep -i "error\|traceback\|exception" .snakemake/slurm_logs/rule_covariance_glass_mock/381540.log
+```
+
+**SLURM log directory structure** (for rules with wildcards):
+```
+.snakemake/slurm_logs/
+├── rule_simple_rule/
+│   ├── 381540.log
+│   └── 381541.log
+├── rule_complex_rule/
+│   ├── param_set_1/
+│   │   ├── 381542.log
+│   │   └── 381543.log
+│   └── param_set_2/
+│       └── 381544.log
 ```
 
 ### Monitoring Checklist for Long Workflows
@@ -271,13 +294,13 @@ Automatically displays logs from failed jobs. Very helpful for cluster execution
    ```bash
    snakemake -n {upstream_target}
    ```
-4. **TRY**: `--rerun-incomplete` if there was an interruption
+4. **ADD**: `--rerun-incomplete` if there was an interruption
    ```bash
    snakemake --rerun-incomplete {target}
    ```
-5. **TRY**: `--unlock` if directory was locked
+5. **ADD**: `--nolock` if directory was locked
    ```bash
-   snakemake --unlock {target}
+   snakemake --nolock {target}
    ```
 6. **INVESTIGATE**: Are triggers configured correctly? Check:
    ```bash
@@ -312,11 +335,8 @@ snakemake {target} --list-changes code,params,input
 
 **Solution**:
 ```bash
-# Unlock using exact same command that failed
-snakemake --unlock {original_target}
-
-# Then retry original command
-snakemake --profile slurm -j14 {original_target}
+# Add --nolock to the original command
+snakemake --nolock -j14 {original_target}
 ```
 
 ### Incomplete Metadata
@@ -509,7 +529,7 @@ snakemake {target} --show-failed-logs    # Auto-show failures
 snakemake {target} --list-changes code,params,input
 
 # Recovery
-snakemake --unlock {target}              # Unlock directory
+snakemake --nolock {target}              # Ingore locks
 snakemake --rerun-incomplete {target}    # Complete interrupted
 
 # Visualization
