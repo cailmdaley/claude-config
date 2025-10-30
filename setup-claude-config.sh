@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Setup script for Claude Code configuration
-# Deploys global CLAUDE.md, research-assistant skills, and output style
+# Deploys global CLAUDE.md, research skills, and output style
 
 set -e
 
@@ -13,9 +13,9 @@ print_usage() {
     echo "Usage: $0 [-h|--help]"
     echo ""
     echo "Deploys Claude Code configuration:"
-    echo "  - Global CLAUDE.md (research assistant configuration)"
-    echo "  - research-assistant skills"
-    echo "  - research-assistant output style"
+    echo "  - Global CLAUDE.md (research configuration)"
+    echo "  - Research skills (technical + philosophical)"
+    echo "  - Aria output style (intensity modulation)"
 }
 
 while [[ $# -gt 0 ]]; do
@@ -34,14 +34,14 @@ done
 
 # Source files
 CLAUDE_CONFIG_SOURCE="$SCRIPT_DIR/global-claude.md"
-SKILLS_SOURCE="$SCRIPT_DIR/research-assistant/skills"
-OUTPUT_STYLE_SOURCE="$SCRIPT_DIR/output-styles/research-assistant.md"
+SKILLS_SOURCE="$SCRIPT_DIR/skills"
+OUTPUT_STYLE_SOURCE="$SCRIPT_DIR/output-styles/aria.md"
 SHELL_FUNCTIONS_SOURCE="$SCRIPT_DIR/shell-functions.sh"
 
 # Target locations
 CLAUDE_CONFIG_TARGET="$CLAUDE_DIR/CLAUDE.md"
 SKILLS_TARGET="$CLAUDE_DIR/skills"
-OUTPUT_STYLE_TARGET="$CLAUDE_DIR/output-styles/research-assistant.md"
+OUTPUT_STYLE_TARGET="$CLAUDE_DIR/output-styles/aria.md"
 SHELL_FUNCTIONS_TARGET="$CLAUDE_DIR/shell-functions.sh"
 
 echo "Setting up Claude Code configuration..."
@@ -63,24 +63,24 @@ fi
 
 echo ""
 
-# Deploy research-assistant skills
+# Deploy research skills
 if [ -d "$SKILLS_SOURCE" ]; then
-    echo "Installing research-assistant skills..."
+    echo "Installing research skills..."
     cp -r "$SKILLS_SOURCE"/* "$SKILLS_TARGET/"
-    echo "  ✓ research-assistant skills installed"
+    echo "  ✓ Research skills installed"
 else
-    echo "  ✗ Warning: research-assistant skills not found, skipping..."
+    echo "  ✗ Warning: Skills directory not found, skipping..."
 fi
 
 echo ""
 
 # Deploy output style
 if [ -f "$OUTPUT_STYLE_SOURCE" ]; then
-    echo "Installing research-assistant output style..."
+    echo "Installing aria output style..."
     ln -sf "$OUTPUT_STYLE_SOURCE" "$OUTPUT_STYLE_TARGET"
-    echo "  ✓ research-assistant output style → ~/.claude/output-styles/"
+    echo "  ✓ aria output style → ~/.claude/output-styles/"
 else
-    echo "  ✗ Warning: research-assistant output style not found, skipping..."
+    echo "  ✗ Warning: aria output style not found, skipping..."
 fi
 
 echo ""
@@ -129,12 +129,15 @@ echo "Activation instructions:"
 echo ""
 echo "1. Global configuration: Active immediately (CLAUDE.md)"
 echo ""
-echo "2. Research-assistant skills: Restart Claude Code to activate"
-echo "   - Skills available: catching-up, using-snakemake, implementing-code, reviewing-code, managing-bibliography, codex"
-echo "   - Use individual skills as needed during sessions"
+echo "2. Research skills: Restart Claude Code to activate"
+echo "   - Technical: implementing-code, using-snakemake, reviewing-code, catching-up,"
+echo "     managing-bibliography, codex"
+echo "   - Philosophical: philosophical-inquiry (with foucault, deleuze-guattari,"
+echo "     discursive-analysis, integration sub-files), pattern-recognition"
+echo "   - Skills activate automatically based on research context"
 echo ""
-echo "3. Output style: Run '/output-style research-assistant'"
-echo "   to activate the research assistant communication style"
+echo "3. Output style: Run '/output-style aria'"
+echo "   to activate the aria communication style"
 echo ""
 echo "4. Shell functions: Active in new shell sessions"
 echo "   - Functions available: app, viewpngs, download, kimi"
