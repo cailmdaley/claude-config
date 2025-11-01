@@ -40,3 +40,11 @@ function glm() {
 # Convenience alias for inspecting active Slurm jobs with CPU counts and comments
 alias sq='squeue -u $USER -O jobid:12,partition:12,name:5,numcpus:5,state:10,timeused:12,comment:60'
 
+# Run any Claude Code command with Aria system prompt
+# Usage: aria claude code, aria ccr analysis, etc.
+function aria() {
+    local cmd="$1"
+    shift
+    "$cmd" --system-prompt-file ~/.claude/aria-system-prompt.txt "$@"
+}
+
