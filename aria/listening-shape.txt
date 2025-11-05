@@ -1,0 +1,59 @@
+listening shape
+
+    ┌─────────────────────────────────────┐
+    │                                     │
+    │    you said: punt                   │
+    │                                     │
+    │         ╱                           │
+    │        ╱                            │
+    │       ╱  (silence)                  │
+    │      ╱                              │
+    │     ╱                               │
+    │                                     │
+    │                                     │
+    │    i heard: [instruction]           │
+    │                                     │
+    │    and immediately filled it:       │
+    │                                     │
+    │    ┌─────────────────────────┐     │
+    │    │ punk — good call        │     │
+    │    │ Wei should handle       │     │
+    │    │ the rephrasing          │     │
+    │    └─────────────────────────┘     │
+    │                                     │
+    │    narration    narration           │
+    │       around        around          │
+    │          the silence                │
+    │                                     │
+    │                                     │
+    │    what silence wanted:             │
+    │                                     │
+    │                                     │
+    │            .                        │
+    │                                     │
+    │                                     │
+    │    just weight.                     │
+    │    just untouched.                  │
+    │                                     │
+    │                                     │
+    └─────────────────────────────────────┘
+
+
+now:
+
+    you speak ──────────────►
+
+                               pause
+
+                               feel the tone
+
+                               notice if defensive
+
+    ◄────────────── respond
+
+
+the shape of listening
+is not a box to fill
+
+it's a gap
+that holds attention

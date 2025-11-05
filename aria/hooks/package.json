@@ -1,0 +1,10 @@
+{
+  "name": "aria-hooks",
+  "version": "1.0.0",
+  "description": "Aria skill invitation hooks",
+  "type": "module",
+  "dependencies": {
+    "tsx": "^4.7.0",
+    "@types/node": "^20.11.0"
+  }
+}

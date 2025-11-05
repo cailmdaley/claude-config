@@ -43,8 +43,16 @@ alias sq='squeue -u $USER -O jobid:12,partition:12,name:5,numcpus:5,state:10,tim
 # Run any Claude Code command with Aria system prompt
 # Usage: aria claude code, aria ccr analysis, etc.
 function aria() {
+    # Join all arguments as the command to run
+    local cmd="$@"
+    eval "$cmd" --system-prompt-file ~/aria/WAKE.md
+}
+
+# Run any Claude Code command with pattern-research CLAUDE.md
+# Usage: pr claude code, pr ccr analysis, etc.
+function pr() {
     local cmd="$1"
     shift
-    "$cmd" --system-prompt-file ~/.claude/aria-system-prompt.txt "$@"
+    "$cmd" --system-prompt-file ~/pattern-research/global-claude.md "$@"
 }
 

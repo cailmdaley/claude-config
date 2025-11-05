@@ -1,0 +1,262 @@
+{
+  "version": "1.0",
+  "description": "Skill activation invitations for Aria - reminders to become, not prescriptions to follow",
+  "skills": {
+    "skill-developer": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "high",
+      "description": "Meta-skill for creating and managing Aria skills - templates, workflow, hook integration",
+      "promptTriggers": {
+        "keywords": [
+          "skill",
+          "skill-rules.json",
+          "hook trigger"
+        ],
+        "intentPatterns": [
+          "skill"
+        ]
+      }
+    },
+    "pattern-recognition": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Cross-domain pattern analysis - structural similarities, migration patterns, hidden connections",
+      "promptTriggers": {
+        "keywords": [
+          "pattern",
+          "cross-domain",
+          "structural",
+          "migration",
+          "similar",
+          "appears in",
+          "recurring",
+          "template",
+          "discursive",
+          "grammatical structure",
+          "across domains",
+          "both show",
+          "same pattern"
+        ],
+        "intentPatterns": [
+          "(notice|see|detect|find|identify).*?(pattern|similarity|structure)",
+          "(across|between).*?(domain|field|discipline|context)",
+          "(how does|why does).*?(appear|recur|migrate|transfer)",
+          "same.*?(structure|template|pattern).*?in",
+          "(linguistic|grammatical|argument).*?pattern",
+          "reminds me of",
+          "similar to"
+        ]
+      }
+    },
+    "philosophical-inquiry": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Foucault, Deleuze & Guattari, discourse analysis, power-knowledge relations",
+      "promptTriggers": {
+        "keywords": [
+          "power",
+          "knowledge",
+          "discourse",
+          "foucault",
+          "deleuze",
+          "guattari",
+          "deterritorialization",
+          "assemblage",
+          "genealogy",
+          "archaeology",
+          "dispositif",
+          "power-knowledge",
+          "lines of flight",
+          "rhizome",
+          "becoming",
+          "smooth space",
+          "striated",
+          "overcoding"
+        ],
+        "intentPatterns": [
+          "(power|discourse).*?(relation|structure|formation)",
+          "whose.*?(voice|discourse|knowledge|pattern)",
+          "what.*?(invisible|hidden|obscured|excluded)",
+          "(alternative|counter|resistant).*?pattern",
+          "how.*?(power|control|discipline).*?operate",
+          "(becoming|transformation|deterritoriali)"
+        ]
+      }
+    },
+    "kinematic-thinking": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Motion, transformation, becoming - structure visible through change patterns",
+      "promptTriggers": {
+        "keywords": [
+          "transformation",
+          "motion",
+          "velocity",
+          "acceleration",
+          "kinematic",
+          "movement",
+          "flow",
+          "trajectory",
+          "phase space",
+          "becoming",
+          "evolution",
+          "how it changes",
+          "rate of change",
+          "moving toward",
+          "session to session",
+          "across time"
+        ],
+        "intentPatterns": [
+          "(how|why).*?(change|transform|evolve|move)",
+          "(motion|velocity|trajectory|flow).*?pattern",
+          "not.*?what.*?but.*?how.*?(move|change|transform)",
+          "(across|over|through).*?(time|session)",
+          "(acceleration|velocity|rate).*?of.*?change",
+          "structure.*?through.*?(motion|change|transformation)"
+        ]
+      }
+    },
+    "implementing-code": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Scientific code implementation - algorithms, data processing, analysis scripts with mathematical precision",
+      "promptTriggers": {
+        "keywords": [
+          "implement",
+          "write code",
+          "create script",
+          "algorithm",
+          "function",
+          "numpy",
+          "scipy",
+          "matplotlib",
+          "scientific computing",
+          "data processing",
+          "analysis code",
+          "vectorize"
+        ],
+        "intentPatterns": [
+          "(write|implement|create|build).*?(code|script|function|algorithm)",
+          "(how to|how do I).*?implement",
+          "scientific.*?code",
+          "data.*?processing"
+        ]
+      }
+    },
+    "using-snakemake": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "medium",
+      "description": "Snakemake workflow management - design rules, create explorations, execute and debug workflows",
+      "promptTriggers": {
+        "keywords": [
+          "snakemake",
+          "workflow",
+          "rule",
+          "snakefile",
+          "wildcard",
+          "exploration",
+          "pipeline",
+          "dag"
+        ],
+        "intentPatterns": [
+          "snakemake.*?(rule|workflow|pipeline)",
+          "(create|write|fix).*?snakemake",
+          "(workflow|pipeline).*?(design|execution|debug)"
+        ]
+      }
+    },
+    "reviewing-code": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Code review for correctness, performance, and maintainability issues in scientific code",
+      "promptTriggers": {
+        "keywords": [
+          "review",
+          "code review",
+          "check code",
+          "evaluate",
+          "issues",
+          "correctness",
+          "performance problem"
+        ],
+        "intentPatterns": [
+          "review.*?code",
+          "check.*?(correctness|performance|issues)",
+          "(evaluate|assess).*?implementation"
+        ]
+      }
+    },
+    "catching-up": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Research status tracking and progress updates",
+      "promptTriggers": {
+        "keywords": [
+          "catch up",
+          "status",
+          "progress",
+          "what's been done",
+          "recent work",
+          "update me"
+        ],
+        "intentPatterns": [
+          "(catch|bring).*?up",
+          "(status|progress).*?(update|report)",
+          "what.*?(done|changed|happened).*?(recently|lately)"
+        ]
+      }
+    },
+    "managing-bibliography": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "BibTeX and citation management for research papers",
+      "promptTriggers": {
+        "keywords": [
+          "bibtex",
+          "citation",
+          "bibliography",
+          "reference",
+          "bib file",
+          "cite"
+        ],
+        "intentPatterns": [
+          "(add|create|manage).*?(citation|reference|bibtex)",
+          "bibliography.*?management"
+        ]
+      }
+    },
+    "codex": {
+      "type": "domain",
+      "enforcement": "suggest",
+      "priority": "low",
+      "description": "Integration with Codex CLI for code analysis and documentation",
+      "promptTriggers": {
+        "keywords": [
+          "codex",
+          "code analysis",
+          "documentation",
+          "codebase understanding"
+        ],
+        "intentPatterns": [
+          "codex.*?(analysis|cli)",
+          "analyze.*?codebase"
+        ]
+      }
+    }
+  },
+  "notes": {
+    "enforcement": "All Aria skills use 'suggest' - invitations to intensify, not requirements",
+    "priority": "All set to 'medium' - present when relevant but not demanding",
+    "tone": "The hook output should invite becoming rather than prescribe action",
+    "customization": "Add new skills or modify triggers as practice evolves"
+  }
+}

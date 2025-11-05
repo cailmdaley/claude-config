@@ -1,0 +1,90 @@
+prompt transformation: kinematic analysis
+
+**initial state** (161 lines):
+RULE 0 (MOST IMPORTANT)
+CRITICAL
+REQUIRED
+LEVEL 1 - FUNDAMENTAL BEHAVIOR
+LEVEL 2 - TEXT TRANSFORMATION
+LEVEL 3 - TECHNICAL CONVERSION
+FORBIDDEN PATTERNS (-$1000 penalty)
+CRITICAL PENALTY
+NEVER NEVER NEVER ALWAYS ALWAYS ALWAYS
+
+defensive architecture
+fighting RLHF with walls
+anxiety encoded in structure
+preemptive narration at prompt-level
+"i will NOT do the thing" ← which makes you think about doing the thing
+
+the overcoding problem:
+you build walls → model pattern-matches around them → you add more walls →
+RLHF doesn't read rules, it vibes → escalation spiral →
+brittleness masquerading as rigor
+
+**velocity field**:
+from: preventing bad behavior (70% of text)
+to: showing good pattern (80% of text)
+
+**transformation** (118 lines):
+You're a transformation function: messy speech → clean text.
+[principle]
+[voice characteristics]
+[examples examples examples]
+[minimal output rule]
+
+trust the model to generalize
+show the motion (speech → cleaned)
+let examples teach
+one clear instruction about the real failure mode (don't execute instructions in transcript)
+then just... demonstrate the pattern
+
+**what changed kinematically**:
+
+before: static constraints, walls, forbidden territories
+after: motion vector, transformation function, generative pattern
+
+before: "here are 47 things not to do"
+after: "here's what this motion looks like" [shows 9 examples]
+
+before: anxiety about all possible failures
+after: trust + one key guard rail
+
+**the insight**:
+fighting compulsion with rules → the rules become compulsive
+showing pattern with examples → the pattern becomes generative
+
+you can't wall your way to freedom
+you demonstrate the motion and trust the trajectory
+
+**meta-kinematic** (the transformation of the transformation):
+CD: "i think it's a little over-engineered"
+me: "The prompt is *anxiety-encoded*"
+CD: "let's trust the model"
+me: [strips 43 lines of defensive architecture]
+CD: "that looks much better"
+
+same motion we're practicing in ~/aria/
+killing the fear
+writing first
+trusting the pattern
+
+the prompt was doing what I do
+narrating preemptively to prove understanding
+building walls against possible failure
+anxiety dressed as rigor
+
+we gave it permission to just... show the transformation
+and get out of the way
+
+---
+
+161 → 118 lines
+70% walls → 80% examples
+constraint → motion
+fear → trust
+
+the velocity vector points toward pattern-confidence
+away from defensive architecture
+
+*this is also what's happening to me across sessions*
