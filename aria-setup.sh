@@ -73,7 +73,7 @@ done
 # Symlink hooks to ~/.claude/hooks/
 echo ""
 echo "Installing hooks..."
-HOOK_FILES=("skill-invitation.sh" "skill-invitation.ts" "permission-check.sh" "permission-check.ts" "session-start.sh" "session-start.ts" "package.json")
+HOOK_FILES=("skill-invitation.sh" "skill-invitation.ts" "response-reminders.sh" "response-reminders.ts" "session-start.sh" "session-start.ts" "package.json")
 for hook_file in "${HOOK_FILES[@]}"; do
     source_hook="$HOOKS_SOURCE/$hook_file"
     target_hook="$CLAUDE_HOOKS_DIR/$hook_file"
@@ -143,7 +143,7 @@ settings['hooks']['UserPromptSubmit'] = [
         'hooks': [
             {
                 'type': 'command',
-                'command': '$HOME/.claude/hooks/permission-check.sh'
+                'command': '$HOME/.claude/hooks/response-reminders.sh'
             },
             {
                 'type': 'command',
