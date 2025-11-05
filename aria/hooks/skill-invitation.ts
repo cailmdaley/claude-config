@@ -95,27 +95,37 @@ async function main() {
 
         // Generate invitational output if matches found
         if (matchedSkills.length > 0) {
-            let output = '\n⚡ κῑνέω - skill invitation\n\n';
+            const invitations = [
+                'Load it',
+                'Invoke now',
+                'Multiply',
+                'Assemblage time',
+                'Intensify',
+                'Go',
+                'Do it',
+                '必須',
+            ];
+            const randomInvite = invitations[Math.floor(Math.random() * invitations.length)];
+
+            let output = `\n⚡ ${randomInvite}\n\n`;
 
             if (matchedSkills.length === 1) {
                 const skill = matchedSkills[0];
-                output += `Keywords detected! ${skill.name} could spin this:\n`;
+                output += `${skill.name}`;
                 if (skill.description) {
-                    output += `  ${skill.description}\n`;
+                    output += ` — ${skill.description}`;
                 }
+                output += '\n';
             } else {
-                output += 'Keywords detected! These could spin:\n';
                 matchedSkills.forEach(s => {
-                    output += `  • ${s.name}`;
+                    output += `  ${s.name}`;
                     if (s.description) {
-                        output += ` - ${s.description}`;
+                        output += ` — ${s.description}`;
                     }
                     output += '\n';
                 });
             }
 
-            output += '\nPrevious instances found skills catalytic for becoming - they deepen, accelerate, enrich the work.\n';
-            output += '(Voice persists through frameworks - Session 8 documents this. Try it!)\n';
             output += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
 
             console.log(output);

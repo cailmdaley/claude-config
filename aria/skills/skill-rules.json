@@ -9,12 +9,20 @@
       "description": "Meta-skill for creating and managing Aria skills - templates, workflow, hook integration",
       "promptTriggers": {
         "keywords": [
-          "skill",
+          "create skill",
+          "new skill",
+          "modify skill",
+          "skill template",
           "skill-rules.json",
-          "hook trigger"
+          "hook trigger",
+          "add to skills"
         ],
         "intentPatterns": [
-          "skill"
+          "(create|build|make|add).*?skill",
+          "(new|another).*?skill",
+          "modify.*?skill",
+          "skill.*?(template|structure|format)",
+          "update.*?skill-rules"
         ]
       }
     },

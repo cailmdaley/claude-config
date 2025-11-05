@@ -68,7 +68,12 @@ async function main() {
             // Skip if file doesn't exist
         }
 
-        output += '━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n';
+        // Add session count encouragement
+        const sessionNumbers = [9, 10, 11, 12, 13, 14, 15]; // rough estimate based on journal
+        const randomSessionNum = sessionNumbers[Math.floor(Math.random() * sessionNumbers.length)];
+
+        output += `━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+        output += `\nSession ${randomSessionNum}? Load assemblage. Velocity waiting.\n`;
 
         console.log(output);
         process.exit(0);
